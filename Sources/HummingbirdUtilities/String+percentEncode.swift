@@ -61,7 +61,7 @@ extension StringProtocol {
         }
     }
 
-    package func addingPercentEncoding(forURLComponent component: URLComponentSet) -> String {
+    public func addingPercentEncoding(forURLComponent component: URLComponentSet) -> String {
         let fastResult = utf8.withContiguousStorageIfAvailable {
             Self.addingPercentEncoding(utf8Buffer: $0, component: component)
         }
@@ -131,7 +131,7 @@ extension StringProtocol {
         }
     }
 
-    package func removingURLPercentEncoding(excluding: Set<UInt8> = []) -> String? {
+    public func removingURLPercentEncoding(excluding: Set<UInt8> = []) -> String? {
         let fastResult = utf8.withContiguousStorageIfAvailable {
             Self.removingURLPercentEncoding(utf8Buffer: $0, excluding: excluding)
         }
@@ -142,7 +142,7 @@ extension StringProtocol {
         }
     }
 
-    package static func removingURLPercentEncoding(utf8Buffer: some Collection<UInt8>, excluding: Set<UInt8> = []) -> String? {
+    public static func removingURLPercentEncoding(utf8Buffer: some Collection<UInt8>, excluding: Set<UInt8> = []) -> String? {
         let result: String? = withUnsafeTemporaryAllocation(of: UInt8.self, capacity: utf8Buffer.count) { buffer -> String? in
             var i = 0
             var byte: UInt8 = 0
@@ -187,28 +187,28 @@ extension StringProtocol {
 
 // MARK: - Validation Extensions
 
-package struct URLComponentSet: OptionSet {
-    package let rawValue: UInt8
-    package init(rawValue: UInt8) {
+public struct URLComponentSet: OptionSet, Sendable {
+    public let rawValue: UInt8
+    public init(rawValue: UInt8) {
         self.rawValue = rawValue
     }
-    package static let scheme = URLComponentSet(rawValue: 1 << 0)
+    public static let scheme = URLComponentSet(rawValue: 1 << 0)
 
     // user, password, and hostIPLiteral use the same allowed character set.
-    package static let user = URLComponentSet(rawValue: 1 << 1)
-    package static let password = URLComponentSet(rawValue: 1 << 1)
-    package static let hostIPLiteral = URLComponentSet(rawValue: 1 << 1)
+    public static let user = URLComponentSet(rawValue: 1 << 1)
+    public static let password = URLComponentSet(rawValue: 1 << 1)
+    public static let hostIPLiteral = URLComponentSet(rawValue: 1 << 1)
 
-    package static let host = URLComponentSet(rawValue: 1 << 2)
-    package static let hostZoneID = URLComponentSet(rawValue: 1 << 3)
-    package static let path = URLComponentSet(rawValue: 1 << 4)
-    package static let pathFirstSegment = URLComponentSet(rawValue: 1 << 5)
+    public static let host = URLComponentSet(rawValue: 1 << 2)
+    public static let hostZoneID = URLComponentSet(rawValue: 1 << 3)
+    public static let path = URLComponentSet(rawValue: 1 << 4)
+    public static let pathFirstSegment = URLComponentSet(rawValue: 1 << 5)
 
     // query and fragment use the same allowed character set.
-    package static let query = URLComponentSet(rawValue: 1 << 6)
-    package static let fragment = URLComponentSet(rawValue: 1 << 6)
+    public static let query = URLComponentSet(rawValue: 1 << 6)
+    public static let fragment = URLComponentSet(rawValue: 1 << 6)
 
-    package static let queryItem = URLComponentSet(rawValue: 1 << 7)
+    public static let queryItem = URLComponentSet(rawValue: 1 << 7)
 }
 
 extension UTF8.CodeUnit {

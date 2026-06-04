@@ -6,6 +6,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import HummingbirdUtilities
+
 @available(hummingbird 2.0, *)
 extension URLEncodedFormEncoder: ResponseEncoder {
     /// Extend URLEncodedFormEncoder to support generating a ``HummingbirdCore/Response``. Sets body and header values

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import HummingbirdUtilities
 import NIOCore
 
 extension RouterTrie {

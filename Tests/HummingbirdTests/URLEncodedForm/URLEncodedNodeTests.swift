@@ -9,6 +9,7 @@
 import Testing
 
 @testable import Hummingbird
+@testable import HummingbirdUtilities
 
 extension URLEncodedFormTests {
     struct NodeTests {

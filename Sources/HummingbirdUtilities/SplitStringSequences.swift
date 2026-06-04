@@ -8,31 +8,29 @@
 
 /// A sequence that iterates over string components separated by a given character,
 /// omitting empty components.
-@usableFromInline
-struct SplitStringSequence<S: StringProtocol>: Sequence {
-    @usableFromInline let base: S
-    @usableFromInline let separator: Character
+public struct SplitStringSequence<S: StringProtocol>: Sequence {
+    public let base: S
+    public let separator: Character
 
     @inlinable
-    init(_ base: S, separator: Character = "/") {
+    public init(_ base: S, separator: Character = "/") {
         self.base = base
         self.separator = separator
     }
 
     @inlinable
-    func makeIterator() -> Iterator {
+    public func makeIterator() -> Iterator {
         Iterator(base: base, separator: separator)
     }
 
-    @usableFromInline
-    struct Iterator: IteratorProtocol {
-        @usableFromInline let base: S
-        @usableFromInline let endIndex: S.Index
-        @usableFromInline var currentIndex: S.Index
-        @usableFromInline let separator: Character
+    public struct Iterator: IteratorProtocol {
+        public let base: S
+        public let endIndex: S.Index
+        public var currentIndex: S.Index
+        public let separator: Character
 
         @inlinable
-        init(base: S, separator: Character) {
+        public init(base: S, separator: Character) {
             self.base = base
             self.separator = separator
             self.endIndex = base.endIndex
@@ -45,7 +43,7 @@ struct SplitStringSequence<S: StringProtocol>: Sequence {
         }
 
         @inlinable
-        mutating func next() -> S.SubSequence? {
+        public mutating func next() -> S.SubSequence? {
             guard currentIndex < endIndex else { return nil }
 
             let start = currentIndex
@@ -68,34 +66,32 @@ struct SplitStringSequence<S: StringProtocol>: Sequence {
 
 /// A sequence that iterates over string components separated by a given character,
 /// omitting empty components.
-@usableFromInline
-struct SplitStringMaxSplitsSequence<S: StringProtocol>: Sequence {
-    @usableFromInline let base: S
-    @usableFromInline let separator: Character
-    @usableFromInline let maxSplits: Int
+public struct SplitStringMaxSplitsSequence<S: StringProtocol>: Sequence {
+    public let base: S
+    public let separator: Character
+    public let maxSplits: Int
 
     @inlinable
-    init(_ base: S, separator: Character, maxSplits: Int) {
+    public init(_ base: S, separator: Character, maxSplits: Int) {
         self.base = base
         self.separator = separator
         self.maxSplits = maxSplits
     }
 
     @inlinable
-    func makeIterator() -> Iterator {
+    public func makeIterator() -> Iterator {
         Iterator(base: self.base, separator: self.separator, maxSplits: self.maxSplits)
     }
 
-    @usableFromInline
-    struct Iterator: IteratorProtocol {
-        @usableFromInline let base: S
-        @usableFromInline let endIndex: S.Index
-        @usableFromInline var currentIndex: S.Index
-        @usableFromInline var availableSplits: Int
-        @usableFromInline let separator: Character
+    public struct Iterator: IteratorProtocol {
+        public let base: S
+        public let endIndex: S.Index
+        public var currentIndex: S.Index
+        public var availableSplits: Int
+        public let separator: Character
 
         @inlinable
-        init(base: S, separator: Character, maxSplits: Int) {
+        public init(base: S, separator: Character, maxSplits: Int) {
             self.base = base
             self.separator = separator
             self.endIndex = base.endIndex
@@ -109,7 +105,7 @@ struct SplitStringMaxSplitsSequence<S: StringProtocol>: Sequence {
         }
 
         @inlinable
-        mutating func next() -> S.SubSequence? {
+        public mutating func next() -> S.SubSequence? {
             guard self.currentIndex < self.endIndex, self.availableSplits > 0 else { return nil }
 
             self.availableSplits -= 1
@@ -139,12 +135,12 @@ struct SplitStringMaxSplitsSequence<S: StringProtocol>: Sequence {
 
 extension StringProtocol {
     @inlinable
-    func splitSequence(separator: Character) -> SplitStringSequence<Self> {
+    public func splitSequence(separator: Character) -> SplitStringSequence<Self> {
         SplitStringSequence(self, separator: separator)
     }
 
     @inlinable
-    func splitMaxSplitsSequence(separator: Character, maxSplits: Int) -> SplitStringMaxSplitsSequence<Self> {
+    public func splitMaxSplitsSequence(separator: Character, maxSplits: Int) -> SplitStringMaxSplitsSequence<Self> {
         SplitStringMaxSplitsSequence(self, separator: separator, maxSplits: maxSplits)
     }
 }

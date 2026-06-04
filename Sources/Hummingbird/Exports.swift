@@ -9,6 +9,9 @@
 @_exported @_documentation(visibility: internal) import struct HTTPTypes.HTTPFields
 @_exported @_documentation(visibility: internal) import struct HTTPTypes.HTTPRequest
 @_exported @_documentation(visibility: internal) import struct HTTPTypes.HTTPResponse
+@_exported @_documentation(visibility: internal) import struct HummingbirdUtilities.URLEncodedFormDecoder
+@_exported @_documentation(visibility: internal) import struct HummingbirdUtilities.URLEncodedFormEncoder
+@_exported @_documentation(visibility: internal) import struct HummingbirdUtilities.URLEncodedFormError
 @_exported @_documentation(visibility: internal) import struct HummingbirdCore.BindAddress
 // Temporary exports of unavailable typealiases
 @_exported @_documentation(visibility: internal) import struct HummingbirdCore.HBRequest

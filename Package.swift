@@ -34,6 +34,7 @@ let package = Package(
         .library(name: "HummingbirdTLS", targets: ["HummingbirdTLS"]),
         .library(name: "HummingbirdRouter", targets: ["HummingbirdRouter"]),
         .library(name: "HummingbirdTesting", targets: ["HummingbirdTesting"]),
+        .library(name: "HummingbirdUtilities", targets: ["HummingbirdUtilities"]),
         .executable(name: "PerformanceTest", targets: ["PerformanceTest"]),
     ],
     traits: [
@@ -59,9 +60,14 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "HummingbirdUtilities",
+            swiftSettings: swiftSettings
+        ),
+        .target(
             name: "Hummingbird",
             dependencies: [
                 .byName(name: "HummingbirdCore"),
+                .byName(name: "HummingbirdUtilities"),
                 .product(name: "ServiceLifecycle", package: "swift-service-lifecycle"),
                 .product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
                 .product(name: "Atomics", package: "swift-atomics"),
@@ -79,6 +85,7 @@ let package = Package(
         .target(
             name: "HummingbirdCore",
             dependencies: [
+                .byName(name: "HummingbirdUtilities"),
                 .product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
                 .product(name: "DequeModule", package: "swift-collections"),
                 .product(name: "Configuration", package: "swift-configuration", condition: .when(traits: ["ConfigurationSupport"])),
